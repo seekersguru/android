@@ -1,4 +1,4 @@
-package com.wedwise.adapter;
+package com.eventmanagementapp.adapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

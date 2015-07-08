@@ -1,4 +1,4 @@
-package com.eventmanagementapp.tab;
+/*package com.eventmanagementapp.tab;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -33,8 +33,8 @@ import com.eventmanagementapp.adapter.MessagesListAdapter;
 import com.eventmanagementapp.common.GlobalCommonMethods;
 import com.eventmanagementapp.common.GlobalCommonValues;
 
-/**
- */
+*//**
+ *//*
 public class MessageTab extends Fragment {
 
 	ListView lvMessages;
@@ -72,7 +72,7 @@ public class MessageTab extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent myIntent=new Intent(getActivity(),MessageChatActivity.class);
-				/*getActivity().*/startActivity(myIntent);
+				getActivity().startActivity(myIntent);
 				getActivity().overridePendingTransition(R.anim.right_in, R.anim.left_out);
 			}
 		});
@@ -183,4 +183,4 @@ public class MessageTab extends Fragment {
 			catch(Exception ex) {}
 		}
 	}
-}
+}*/

@@ -7,4 +7,5 @@ public class GlobalCommonValues {
 	public static String LOGIN=BASEURL+"vendor_login"+"/";
 	public static String CUSTOMER_VENDOR_MESSAGE_CREATE=BASEURL+"customer_vendor_message_create"+"/";
 	public static String CUSTOMER_VENDOR_MESSAGE_LIST=BASEURL+"customer_vendor_message_list"+"/";
+	public static String CUSTOMER_VENDOR_MESSAGE_DETAIL=BASEURL+"customer_vendor_message_detail"+"/";
 }

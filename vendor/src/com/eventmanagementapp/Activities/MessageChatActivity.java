@@ -83,7 +83,7 @@ public class MessageChatActivity extends FragmentActivity{
 		CustomFonts.setFontOfTextView(mContext, tvToolBar, "fonts/GothamRnd-Light.otf");
 		adapterChat=new ChatAdapter(MessageChatActivity.this,listChat);
 		lvChatMessages.setAdapter(adapterChat);
-		url=GlobalCommonValues.CUSTOMER_VENDOR_MESSAGE_LIST;
+		url=GlobalCommonValues.CUSTOMER_VENDOR_MESSAGE_DETAIL;
 		new HttpAsyncTask().execute(url);
 		btnSendMessage.setOnClickListener(new OnClickListener() {
 			@Override
@@ -164,7 +164,6 @@ public class MessageChatActivity extends FragmentActivity{
 			}
 			if(!TextUtils.isEmpty(response) && GlobalCommonMethods.isJSONValid(response))
 			{
-
 				if(url.equals(GlobalCommonValues.CUSTOMER_VENDOR_MESSAGE_CREATE))
 				{
 					// In case of sending message
@@ -197,7 +196,7 @@ public class MessageChatActivity extends FragmentActivity{
 						e.getMessage();
 					}
 				}
-				else if(url.equals(GlobalCommonValues.CUSTOMER_VENDOR_MESSAGE_LIST))
+				else if(url.equals(GlobalCommonValues.CUSTOMER_VENDOR_MESSAGE_DETAIL))
 				{
 					// In case of fetching message listing
 					try {
@@ -213,10 +212,10 @@ public class MessageChatActivity extends FragmentActivity{
 						}
 						else if(_result.equalsIgnoreCase("success")){
 							etMessage.setText("");
-
 							JSONArray jsonArray = jsonObj.getJSONArray("json");
 							for(int i=0;i<jsonArray.length();i++)
 							{
+								tvToolBar.setText(new JSONObject(jsonArray.getString(i)).getString("vendor_name"));
 								String message=new JSONObject(jsonArray.getString(i)).getString("message");
 								String msg_time=new JSONObject(jsonArray.getString(i)).getString("msg_time");	
 								HashMap<String, String> hashMap=new HashMap<String,String>();
@@ -269,9 +268,9 @@ public class MessageChatActivity extends FragmentActivity{
 		String identifier=PreferenceUtil.getInstance().getIdentifier();
 		// Send POST data request
 		String from_to="v2c";
+		String receiver_email="test11@test.com";
 		if(url.equals(GlobalCommonValues.CUSTOMER_VENDOR_MESSAGE_CREATE))
 		{
-			String receiver_email="test11@test.com";	
 			String message=etMessage.getText().toString();
 
 			data= URLEncoder.encode("identifier", "UTF-8") 
@@ -286,11 +285,14 @@ public class MessageChatActivity extends FragmentActivity{
 			data += "&" + URLEncoder.encode("from_to", "UTF-8") 
 					+ "=" + URLEncoder.encode(from_to,"UTF-8");
 		}
-		else if(url.equals(GlobalCommonValues.CUSTOMER_VENDOR_MESSAGE_LIST))
+		else if(url.equals(GlobalCommonValues.CUSTOMER_VENDOR_MESSAGE_DETAIL))
 		{
 			String page_no=page_count;
 			data= URLEncoder.encode("identifier", "UTF-8") 
 					+ "=" + URLEncoder.encode(identifier, "UTF-8"); 
+
+			data += "&" + URLEncoder.encode("receiver_email", "UTF-8") + "="
+					+ URLEncoder.encode(receiver_email, "UTF-8"); 
 
 			data += "&" + URLEncoder.encode("page_no", "UTF-8") + "="
 					+ URLEncoder.encode(page_no, "UTF-8"); 
@@ -308,8 +310,8 @@ public class MessageChatActivity extends FragmentActivity{
 			if(url.equals(GlobalCommonValues.CUSTOMER_VENDOR_MESSAGE_CREATE)){
 				_url= new URL(GlobalCommonValues.CUSTOMER_VENDOR_MESSAGE_CREATE);
 			}
-			else if(url.equals(GlobalCommonValues.CUSTOMER_VENDOR_MESSAGE_LIST)){
-				_url= new URL(GlobalCommonValues.CUSTOMER_VENDOR_MESSAGE_LIST);
+			else if(url.equals(GlobalCommonValues.CUSTOMER_VENDOR_MESSAGE_DETAIL)){
+				_url= new URL(GlobalCommonValues.CUSTOMER_VENDOR_MESSAGE_DETAIL);
 			}
 			URLConnection conn = _url.openConnection(); 
 			conn.setDoOutput(true); 
